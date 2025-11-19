@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "441444174687",
+    "firebase_url": "https://ahir-199a3-default-rtdb.firebaseio.com",
+    "project_id": "ahir-199a3",
+    "storage_bucket": "ahir-199a3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441444174687:android:c24cad30e9287aec0604ea",
+        "android_client_info": {
+          "package_name": "com.ahire.apps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441444174687-e49p287vnesvcqj9bghqusfoh3e1bto9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ahire.apps",
+            "certificate_hash": "6562ed727b111cc0aea4b776daa2f6ed12b2ee9c"
+          }
+        },
+        {
+          "client_id": "441444174687-fae0al6pb52n2ma5p6ehhpsofroc55au.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2-c7-IxT05rOpyXio4PFQczD-tzdi910"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441444174687-fae0al6pb52n2ma5p6ehhpsofroc55au.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
