@@ -41,7 +41,7 @@ class LKey {
   static const String checkVideos = "Check Videos";
   static const String audioDetails = "Audio Details";
   static const String makeReel = "Make Reel";
-  static const String reels = "Reels";
+  static const String reels = "Rools";
   static const String reportPost = "Report @reportType";
   static const String report = "Report";
   static const String country = "Country";
@@ -88,10 +88,10 @@ class LKey {
   static const String instagram = "Instagram";
   static const String youtube = "Youtube";
   static const String shopNow = "Shop Now";
-  static const String feed = "Feed";
+  static const String feed = "Itihaas";
   static const String activity = "Activity";
   static const String system = "System";
-  static const String story = "Story";
+  static const String story = "Tora";
   static const String unFollow = "Unfollow";
   static const String goLive = "Go Live";
   static const String levels = "Levels";

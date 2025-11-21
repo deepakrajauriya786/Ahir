@@ -24,6 +24,10 @@ import 'package:shortzz/utilities/style_res.dart';
 import 'package:shortzz/utilities/text_style_custom.dart';
 import 'package:shortzz/utilities/theme_res.dart';
 
+import '../../camera_screen/camera_screen.dart';
+import '../../create_feed_screen/create_feed_screen.dart';
+import '../../live_stream/create_live_stream_screen/create_live_stream_screen.dart';
+
 class ProfileUserHeader extends StatelessWidget {
   final ProfileScreenController controller;
 
@@ -407,67 +411,153 @@ class UserButtonView extends StatelessWidget {
     bool isBlock = (user?.isBlock == true &&
         user?.id != SessionManager.instance.getUserID());
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0, top: 10),
-      child: Row(
-        children: [
-          Expanded(
-            child: isBlock
-                ? UnblockButton(
-                    onTap: () => controller.toggleBlockUnblock(true))
-                : RowButton(controller: controller, isMe: isMe, user: user),
-          ),
-          const SizedBox(width: 8),
-          if (isMe)
-            InkWell(
-              onTap: () {
-                ShareManager.shared
-                    .showCustomShareSheet(user: user, keys: ShareKeys.user);
-              },
-              child: Container(
-                  height: 45,
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  decoration: ShapeDecoration(
-                    shape: SmoothRectangleBorder(
-                        borderRadius: SmoothBorderRadius(
-                            cornerRadius: 10, cornerSmoothing: 1)),
-                    color: bgGrey(context),
+        padding: const EdgeInsets.only(bottom: 20.0, top: 10),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: TextButtonCustom(
+                    onTap: () async {
+                      if (isMe) {
+                        Get.to(() => CreateFeedScreen(
+                            createType: CreateFeedType.feed,
+                            onAddPost: controller.onAddPost));
+                      }
+                    },
+                    title: LKey.feed.tr,
+                    fontSize: 16,
+                    backgroundColor: bgGrey(context),
+                    titleColor: textLightGrey(context),
+                    horizontalMargin: 0,
+                    btnHeight: 45,
+                    child: null,
                   ),
-                  child: Image.asset(isMe ? AssetRes.icShare1 : AssetRes.icMore,
-                      height: 21, width: 21)),
-            )
-          else
-            Obx(
-              () => CustomPopupMenuButton(
-                  items: [
-                    MenuItem(
-                        user?.isBlock == true ? LKey.unBlock.tr : LKey.block.tr,
-                        () {
-                      controller.toggleBlockUnblock(user?.isBlock ?? false);
-                    }),
-                    MenuItem(LKey.report.tr, () => controller.reportUser(user)),
-                    if (SessionManager.instance.isModerator.value == 1)
-                      MenuItem(
-                          user?.isFreez == 1
-                              ? LKey.unFreeze.tr
-                              : LKey.freeze.tr,
-                          () =>
-                              controller.freezeUnfreezeUser(user?.isFreez == 1))
-                  ],
-                  child: Container(
-                    height: 45,
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    decoration: ShapeDecoration(
-                      shape: SmoothRectangleBorder(
-                          borderRadius: SmoothBorderRadius(
-                              cornerRadius: 10, cornerSmoothing: 1)),
-                      color: bgGrey(context),
-                    ),
-                    child: Image.asset(AssetRes.icMore, height: 21, width: 21),
-                  )),
-            )
-        ],
-      ),
-    );
+                ),
+                const SizedBox(width: 8),  Expanded(
+                  child: TextButtonCustom(
+                    onTap: () async {
+                      if (isMe) {
+                        Get.to(() => const CameraScreen(
+                            cameraType: CameraScreenType.story));
+                      }
+                    },
+                    title: LKey.story.tr,
+                    fontSize: 16,
+                    backgroundColor: bgGrey(context),
+                    titleColor: textLightGrey(context),
+                    horizontalMargin: 0,
+                    btnHeight: 45,
+                    child: null,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: TextButtonCustom(
+                    onTap: () async {
+                      if (isMe) {
+                        Get.to(() => const CameraScreen(
+                            cameraType: CameraScreenType.post));
+                      }
+                    },
+                    title: LKey.reels.tr,
+                    fontSize: 16,
+                    backgroundColor: bgGrey(context),
+                    titleColor: textLightGrey(context),
+                    horizontalMargin: 0,
+                    btnHeight: 45,
+                    child: null,
+                  ),
+                ),
+                const SizedBox(width: 8),  Expanded(
+                  child: TextButtonCustom(
+                    onTap: () async {
+                      if (isMe) {
+                        Get.to(() => const CreateLiveStreamScreen());
+                      }
+                    },
+                    title: LKey.goLive.tr,
+                    fontSize: 16,
+                    backgroundColor: bgGrey(context),
+                    titleColor: textLightGrey(context),
+                    horizontalMargin: 0,
+                    btnHeight: 45,
+                    child: null,
+                  ),
+                ),
+                const SizedBox(width: 8),
+
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: isBlock
+                      ? UnblockButton(
+                          onTap: () => controller.toggleBlockUnblock(true))
+                      : RowButton(
+                          controller: controller, isMe: isMe, user: user),
+                ),
+                const SizedBox(width: 8),
+                if (isMe)
+                  InkWell(
+                    onTap: () {
+                      ShareManager.shared.showCustomShareSheet(
+                          user: user, keys: ShareKeys.user);
+                    },
+                    child: Container(
+                        height: 45,
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        decoration: ShapeDecoration(
+                          shape: SmoothRectangleBorder(
+                              borderRadius: SmoothBorderRadius(
+                                  cornerRadius: 10, cornerSmoothing: 1)),
+                          color: bgGrey(context),
+                        ),
+                        child: Image.asset(
+                            isMe ? AssetRes.icShare1 : AssetRes.icMore,
+                            height: 21,
+                            width: 21)),
+                  )
+                else
+                  Obx(
+                    () => CustomPopupMenuButton(
+                        items: [
+                          MenuItem(
+                              user?.isBlock == true
+                                  ? LKey.unBlock.tr
+                                  : LKey.block.tr, () {
+                            controller
+                                .toggleBlockUnblock(user?.isBlock ?? false);
+                          }),
+                          MenuItem(LKey.report.tr,
+                              () => controller.reportUser(user)),
+                          if (SessionManager.instance.isModerator.value == 1)
+                            MenuItem(
+                                user?.isFreez == 1
+                                    ? LKey.unFreeze.tr
+                                    : LKey.freeze.tr,
+                                () => controller
+                                    .freezeUnfreezeUser(user?.isFreez == 1))
+                        ],
+                        child: Container(
+                          height: 45,
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          decoration: ShapeDecoration(
+                            shape: SmoothRectangleBorder(
+                                borderRadius: SmoothBorderRadius(
+                                    cornerRadius: 10, cornerSmoothing: 1)),
+                            color: bgGrey(context),
+                          ),
+                          child: Image.asset(AssetRes.icMore,
+                              height: 21, width: 21),
+                        )),
+                  )
+              ],
+            ),
+          ],
+        ));
   }
 }
 
