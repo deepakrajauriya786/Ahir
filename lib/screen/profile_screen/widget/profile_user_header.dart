@@ -414,82 +414,68 @@ class UserButtonView extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 20.0, top: 10),
         child: Column(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: TextButtonCustom(
-                    onTap: () async {
-                      if (isMe) {
-                        Get.to(() => CreateFeedScreen(
-                            createType: CreateFeedType.feed,
-                            onAddPost: controller.onAddPost));
-                      }
-                    },
-                    title: LKey.feed.tr,
-                    fontSize: 16,
-                    backgroundColor: bgGrey(context),
-                    titleColor: textLightGrey(context),
-                    horizontalMargin: 0,
-                    btnHeight: 45,
-                    child: null,
-                  ),
-                ),
-                const SizedBox(width: 8),  Expanded(
-                  child: TextButtonCustom(
-                    onTap: () async {
-                      if (isMe) {
-                        Get.to(() => const CameraScreen(
-                            cameraType: CameraScreenType.story));
-                      }
-                    },
-                    title: LKey.story.tr,
-                    fontSize: 16,
-                    backgroundColor: bgGrey(context),
-                    titleColor: textLightGrey(context),
-                    horizontalMargin: 0,
-                    btnHeight: 45,
-                    child: null,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: TextButtonCustom(
-                    onTap: () async {
-                      if (isMe) {
-                        Get.to(() => const CameraScreen(
-                            cameraType: CameraScreenType.post));
-                      }
-                    },
-                    title: LKey.reels.tr,
-                    fontSize: 16,
-                    backgroundColor: bgGrey(context),
-                    titleColor: textLightGrey(context),
-                    horizontalMargin: 0,
-                    btnHeight: 45,
-                    child: null,
-                  ),
-                ),
-                const SizedBox(width: 8),  Expanded(
-                  child: TextButtonCustom(
-                    onTap: () async {
-                      if (isMe) {
-                        Get.to(() => const CreateLiveStreamScreen());
-                      }
-                    },
-                    title: LKey.goLive.tr,
-                    fontSize: 16,
-                    backgroundColor: bgGrey(context),
-                    titleColor: textLightGrey(context),
-                    horizontalMargin: 0,
-                    btnHeight: 45,
-                    child: null,
-                  ),
-                ),
-                const SizedBox(width: 8),
+        Row(
+        children: [
+        _buildMenuItem(
+        icon: AssetRes.icPost,
+          title: LKey.feed.tr,
+          context: context,
+          backgroundColor: Colors.blue,
+          onTap: () {
+            if (isMe) {
+              Get.to(() => CreateFeedScreen(
+                  createType: CreateFeedType.feed,
+                  onAddPost: controller.onAddPost));
+            }
+          },
+        ),
+      const SizedBox(width: 12),
 
-              ],
-            ),
-            const SizedBox(height: 8),
+      _buildMenuItem(
+        icon: AssetRes.icStory,
+        title: LKey.story.tr,
+        context: context,
+        backgroundColor: Colors.pink,
+        onTap: () {
+          if (isMe) {
+            Get.to(() => const CameraScreen(
+                cameraType: CameraScreenType.story));
+          }
+        },
+      ),
+      const SizedBox(width: 12),
+
+      _buildMenuItem(
+        icon: AssetRes.icReel,
+        title: LKey.reels.tr,
+        context: context,
+        backgroundColor: Colors.orange,
+        onTap: () {
+          if (isMe) {
+            Get.to(() => const CameraScreen(
+                cameraType: CameraScreenType.post));
+          }
+        },
+      ),
+      const SizedBox(width: 12),
+
+      _buildMenuItem(
+        icon: AssetRes.icLive_1,
+        title: LKey.goLive.tr,
+        context: context,
+        backgroundColor: Colors.purple,
+        onTap: () {
+          if (isMe) {
+            Get.to(() => const CreateLiveStreamScreen());
+          }
+        },
+      ),
+      ],
+    ),
+
+
+
+    const SizedBox(height: 8),
             Row(
               children: [
                 Expanded(
@@ -561,6 +547,55 @@ class UserButtonView extends StatelessWidget {
   }
 }
 
+
+Widget _buildMenuItem({
+  required String icon,
+  required String title,
+  required BuildContext context,
+  required Color backgroundColor,
+  required VoidCallback onTap,
+}) {
+  return Expanded(
+    child: TextButton(
+      onPressed: onTap,
+      style: TextButton.styleFrom(
+        backgroundColor: backgroundColor,
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      child: Column(
+        children: [
+          Container(
+            height: 40,
+            width: 40,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            alignment: Alignment.center,
+            child: Image.asset(
+              icon,
+              color: Colors.white,
+              height: 26,
+              width: 26,
+            ),
+          ),
+
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
 class NoUserFoundButton extends StatelessWidget {
   const NoUserFoundButton({super.key});
 

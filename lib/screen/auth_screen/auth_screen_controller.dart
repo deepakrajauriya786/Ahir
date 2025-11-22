@@ -97,15 +97,15 @@ class AuthScreenController extends BaseController {
     if (passwordController.text.trim().isEmpty) {
       return showSnackBar(LKey.enterAPassword.tr);
     }
-    if (confirmPassController.text.trim().isEmpty) {
-      return showSnackBar(LKey.confirmPasswordEmpty.tr);
-    }
+    // if (confirmPassController.text.trim().isEmpty) {
+    //   return showSnackBar(LKey.confirmPasswordEmpty.tr);
+    // }
     if (!GetUtils.isEmail(emailController.text.trim())) {
       return showSnackBar(LKey.invalidEmail.tr);
     }
-    if (passwordController.text.trim() != confirmPassController.text.trim()) {
-      return showSnackBar(LKey.passwordMismatch.tr);
-    }
+    // if (passwordController.text.trim() != confirmPassController.text.trim()) {
+    //   return showSnackBar(LKey.passwordMismatch.tr);
+    // }
     showLoader();
     UserCredential? credential = await createUserWithEmailAndPassword();
     if (credential != null) {
@@ -117,8 +117,9 @@ class AuthScreenController extends BaseController {
           loginVia: LoginVia.loginInUser);
       credential.user?.updateDisplayName(fullNameController.text.trim());
       credential.user?.sendEmailVerification();
-      Get.back();
-      Get.back();
+      // Get.back();
+      // Get.back();
+      onLogin();
       showSnackBar(LKey.registration.tr);
     }
   }

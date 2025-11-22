@@ -73,11 +73,11 @@ class RegistrationScreen extends StatelessWidget {
                     title: LKey.password.tr,
                     isPasswordField: true,
                   ),
-                  TextFieldCustom(
-                    controller: controller.confirmPassController,
-                    title: LKey.reTypePassword.tr,
-                    isPasswordField: true,
-                  ),
+                  // TextFieldCustom(
+                  //   controller: controller.confirmPassController,
+                  //   title: LKey.reTypePassword.tr,
+                  //   isPasswordField: true,
+                  // ),
                 ],
               ),
             )),
