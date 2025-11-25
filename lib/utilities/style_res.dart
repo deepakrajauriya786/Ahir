@@ -12,6 +12,12 @@ class StyleRes {
     end: Alignment.centerRight,
   );
 
+  static Gradient themeGradientlikeRed = const LinearGradient(
+    colors: [ColorRes.likeRed, ColorRes.themeGradient2],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
+
   static Gradient textDarkGreyGradient({double opacity = 1}) => LinearGradient(
         colors: [
           textDarkGrey(Get.context!).withValues(alpha: opacity),

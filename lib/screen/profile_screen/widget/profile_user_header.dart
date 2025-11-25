@@ -476,6 +476,7 @@ class UserButtonView extends StatelessWidget {
 
 
     const SizedBox(height: 8),
+
             Row(
               children: [
                 Expanded(
@@ -655,7 +656,7 @@ class RowButton extends StatelessWidget {
               bool isFollowProgress =
                   controller.isFollowUnFollowInProcess.value;
               Color textColor = user?.isFollowing == true
-                  ? textLightGrey(context)
+                  ? Colors.purple
                   : whitePure(context);
               return TextButtonCustom(
                 onTap: () async {
@@ -675,11 +676,11 @@ class RowButton extends StatelessWidget {
                         : LKey.follow.tr),
                 fontSize: 16,
                 backgroundColor: isMe
-                    ? bgGrey(context)
+                    ? Colors.orange
                     : (user?.isFollowing == true
                         ? bgGrey(context)
                         : blueFollow(context)),
-                titleColor: isMe ? textLightGrey(context) : textColor,
+                titleColor: isMe ? Colors.white : textColor,
                 horizontalMargin: 0,
                 btnHeight: 45,
                 child: isMe
@@ -699,8 +700,8 @@ class RowButton extends StatelessWidget {
                 onTap: () => controller.handlePublishOrMessageBtn(isMe),
                 title: isMe ? LKey.publish.tr : LKey.message.tr,
                 fontSize: 16,
-                backgroundColor: bgGrey(context),
-                titleColor: textLightGrey(context),
+                backgroundColor: Colors.green,
+                titleColor: Colors.white,
                 horizontalMargin: 0,
                 btnHeight: 45),
           ),
