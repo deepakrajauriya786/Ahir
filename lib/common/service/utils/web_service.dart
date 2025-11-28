@@ -40,6 +40,7 @@ class _GiftWallet {
 }
 
 class _User {
+  String otpSend = "${apiURL}user/otpSend";
   String loginInUser = "${apiURL}user/logInUser";
   String logInFakeUser = "${apiURL}user/logInFakeUser";
   String deleteMyAccount = "${apiURL}user/deleteMyAccount";

@@ -68,63 +68,65 @@ class LoginScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 50 * 1.5),
                           LoginSheetTextField(
-                            hintText: LKey.enterYourEmail.tr,
-                            controller: controller.emailController,
-                            keyboardType: TextInputType.emailAddress,
+                            hintText: LKey.phoneNumber.tr,
+                            controller: controller.mobileController,
+                            keyboardType: TextInputType.number,
                           ),
                           const SizedBox(height: 14),
-                          LoginSheetTextField(
-                            isPasswordField: true,
-                            hintText: LKey.enterPassword.tr,
-                            controller: controller.passwordController,
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional.centerEnd,
-                            child: InkWell(
-                              onTap: () {
-                                Get.bottomSheet(const ForgetPasswordSheet(),
-                                        isScrollControlled: true)
-                                    .then((value) => controller
-                                        .forgetEmailController
-                                        .clear());
-                              },
-                              child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 14.0),
-                                  child: Text(LKey.forgetPassword.tr,
-                                      style: TextStyleCustom.outFitRegular400(
-                                          fontSize: 16,
-                                          color: whitePure(context)))),
-                            ),
-                          ),
+                          // LoginSheetTextField(
+                          //   isPasswordField: true,
+                          //   hintText: LKey.enterPassword.tr,
+                          //   controller: controller.passwordController,
+                          // ),
+                          // Align(
+                          //   alignment: AlignmentDirectional.centerEnd,
+                          //   child: InkWell(
+                          //     onTap: () {
+                          //       Get.bottomSheet(const ForgetPasswordSheet(),
+                          //               isScrollControlled: true)
+                          //           .then((value) => controller
+                          //               .forgetEmailController
+                          //               .clear());
+                          //     },
+                          //     child: Padding(
+                          //         padding: const EdgeInsets.symmetric(
+                          //             vertical: 14.0),
+                          //         child: Text(LKey.forgetPassword.tr,
+                          //             style: TextStyleCustom.outFitRegular400(
+                          //                 fontSize: 16,
+                          //                 color: whitePure(context)))),
+                          //   ),
+                          // ),
                           TextButtonCustom(
-                              onTap: controller.onLogin,
+                              onTap: controller.otpSend,
                               title: LKey.logIn.tr,
                               btnHeight: 50,
-                              horizontalMargin: 0)
+                              horizontalMargin: 0),
+                          const SizedBox(height: 14),
+
                         ],
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        controller.fullNameController.clear();
-                        controller.emailController.clear();
-                        controller.passwordController.clear();
-                        controller.confirmPassController.clear();
-                        Get.to(() => const RegistrationScreen());
-                      },
-                      child: Container(
-                        height: 48,
-                        margin: const EdgeInsets.symmetric(vertical: 25),
-                        alignment: Alignment.center,
-                        color: whitePure(context).withValues(alpha: .2),
-                        child: Text(
-                          LKey.createAccountHere.tr,
-                          style: TextStyleCustom.outFitRegular400(
-                              color: whitePure(context), fontSize: 16),
-                        ),
-                      ),
-                    ),
+                    // InkWell(
+                    //   onTap: () {
+                    //     controller.fullNameController.clear();
+                    //     controller.emailController.clear();
+                    //     controller.passwordController.clear();
+                    //     controller.confirmPassController.clear();
+                    //     Get.to(() => const RegistrationScreen());
+                    //   },
+                    //   child: Container(
+                    //     height: 48,
+                    //     margin: const EdgeInsets.symmetric(vertical: 25),
+                    //     alignment: Alignment.center,
+                    //     color: whitePure(context).withValues(alpha: .2),
+                    //     child: Text(
+                    //       LKey.createAccountHere.tr,
+                    //       style: TextStyleCustom.outFitRegular400(
+                    //           color: whitePure(context), fontSize: 16),
+                    //     ),
+                    //   ),
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
