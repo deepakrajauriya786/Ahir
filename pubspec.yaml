@@ -146,13 +146,14 @@ dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/logo.png"
+  image_path: "assets/images/logo-new.png"
 
 flutter_native_splash:
   color: "#ffffff"        # splash background color
-  image: "assets/images/logo.png"  # your splash logo
+  image: "assets/images/logo-new.png"  # your splash logo
   android: true
   ios: true
+  remove_alpha_ios: true
 
   # Optional
   fullscreen: true
@@ -190,7 +191,7 @@ flutter:
     - assets/audios/
     - android/app/src/main/res/mipmap-hdpi/
     - ios/Runner/Assets.xcassets/AppIcon.appiconset/
-    - assets/images/logo.png
+    - assets/images/logo-new.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

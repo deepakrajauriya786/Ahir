@@ -4,6 +4,8 @@ class Params {
   static const String username = 'username';
   static const String userEmail = 'user_email';
   static const String userMobileNo = 'user_mobile_no';
+  static const String mobile = 'mobile';
+  static const String otp = 'otp';
   static const String profilePhoto = 'profile_photo';
   static const String bio = 'bio';
   static const String country = 'country';

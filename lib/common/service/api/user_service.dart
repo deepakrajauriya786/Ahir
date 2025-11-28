@@ -39,6 +39,23 @@ class UserService {
 
   static final UserService instance = UserService._();
 
+  Future<void> otpSend({
+    String? otp,
+    String? mobile,
+
+  }) async {
+
+    await ApiService.instance.call(
+        url: WebService.user.otpSend,
+        param: {
+          Params.otp: otp,
+          Params.mobile: mobile
+        },
+       );
+
+  print("otpsend 3");
+  }
+
   Future<User?> logInUser({
     String? fullName,
     String? mobile,

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,13 +20,18 @@ import 'package:shortzz/model/user_model/user_model.dart' as user;
 import 'package:shortzz/screen/dashboard_screen/dashboard_screen.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
+import 'otp_screen.dart';
+
 class AuthScreenController extends BaseController {
   TextEditingController fullNameController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
+  TextEditingController otpController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController forgetEmailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPassController = TextEditingController();
+  String otp='';
+
 
   @override
   void onInit() {
@@ -32,6 +39,7 @@ class AuthScreenController extends BaseController {
     FirebaseNotificationManager.instance;
     super.onInit();
   }
+
 
   Future<void> onLogin() async {
     final email = emailController.text.trim();
@@ -84,6 +92,84 @@ class AuthScreenController extends BaseController {
     }
   }
 
+  Future<void> onLoginMobile() async {
+    // final email = emailController.text.trim();
+    // final password = passwordController.text.trim();
+
+    if (otpController.text.trim() != otp) {
+      return showSnackBar(LKey.otpWrong.tr);
+    }
+
+    if (mobileController.text.trim().isEmpty) {
+      return showSnackBar(LKey.phoneNumber.tr);
+    }
+
+    showLoader();
+
+    // if (GetUtils.isEmail(email)) {
+    //   final UserCredential? credential = await signInWithEmailAndPassword();
+    //
+    //   if (credential == null) {
+    //     stopLoader();
+    //     return showSnackBar(LKey.userNotFound.tr);
+    //   }
+
+      // if (credential.user?.emailVerified == false) {
+      //   stopLoader();
+      //   return showSnackBar(LKey.verifyEmailFirst.tr);
+      // }
+
+      // String fullname = credential.user?.displayName ?? mobileController.text.split('@')[0];
+      final user.User? data = await _registration(
+          identity: mobileController.text,
+          loginMethod: LoginMethod.email,
+          fullname: "ahir",
+          loginVia: LoginVia.loginInUser);
+      stopLoader();
+
+      if (data != null) {
+        _navigateScreen(data);
+        showSnackBar(LKey.logIn.tr);
+      }
+    // } else {
+    //   final user.User? data = await _registration(
+    //       identity: email,
+    //       loginMethod: LoginMethod.email,
+    //       loginVia: LoginVia.logInFakeUser,
+    //       password: password);
+    //   stopLoader();
+    //
+    //   if (data != null) {
+    //     _navigateScreen(data);
+    //   }
+    // }
+  }
+
+  Future<void> otpSend() async {
+
+    if (mobileController.text.trim().isEmpty) {
+      return showSnackBar(LKey.phoneNumber.tr);
+    }
+
+    Random random = Random();
+    int otpfs= 100000 + random.nextInt(900000); // 6-digit OTP
+     otp= otpfs.toString();
+
+    showLoader();
+
+     await _otpSend(
+          mobile: mobileController.text,
+          otp: otp
+          );
+     print("otpsend 1");
+      stopLoader();
+
+        Get.to(() => const OtpScreen());
+        showSnackBar(LKey.otpSend.tr);
+
+
+  }
+
   Future<void> onCreateAccount() async {
     if (fullNameController.text.trim().isEmpty) {
       return showSnackBar(LKey.fullNameEmpty.tr);
@@ -122,6 +208,44 @@ class AuthScreenController extends BaseController {
       onLogin();
       showSnackBar(LKey.registration.tr);
     }
+  }
+
+  Future<void> onLoginMobileOld() async {
+
+    if (mobileController.text.trim().isEmpty) {
+      return showSnackBar(LKey.phoneNumber.tr);
+    }
+
+    // if (confirmPassController.text.trim().isEmpty) {
+    //   return showSnackBar(LKey.confirmPasswordEmpty.tr);
+    // }
+    // if (!GetUtils.isEmail(emailController.text.trim())) {
+    //   return showSnackBar(LKey.invalidEmail.tr);
+    // }
+    // if (passwordController.text.trim() != confirmPassController.text.trim()) {
+    //   return showSnackBar(LKey.passwordMismatch.tr);
+    // }
+    showLoader();
+    // UserCredential? credential = await createUserWithEmailAndPassword();
+    // if (credential != null) {
+    final user.User? data = await _registration(
+          identity: emailController.text.trim(),
+          loginMethod: LoginMethod.email,
+          fullname: fullNameController.text.trim(),
+          mobile: mobileController.text.trim(),
+          loginVia: LoginVia.loginInUser);
+      // credential.user?.updateDisplayName(fullNameController.text.trim());
+      // credential.user?.sendEmailVerification();
+      // Get.back();
+      // Get.back();
+    if (data != null) {
+      _navigateScreen(data);
+    }
+      onLogin();
+
+
+      showSnackBar(LKey.registration.tr);
+    // }
   }
 
   void onGoogleTap() async {
@@ -177,7 +301,8 @@ class AuthScreenController extends BaseController {
       String? fullname,
       String? mobile,
       required LoginVia loginVia,
-      String? password}) async {
+      String? password})
+  async {
     String? deviceToken =
         await FirebaseNotificationManager.instance.getNotificationToken();
     if (deviceToken == null) return null;
@@ -222,6 +347,20 @@ class AuthScreenController extends BaseController {
       return userData;
     }
     return null;
+  }
+
+  Future<void> _otpSend(
+      {
+
+      String? mobile,
+
+      String? otp}) async {
+
+    await UserService.instance.otpSend(
+        otp: otp,
+        mobile: mobile);
+    print("otpsend 2");
+
   }
 
   Future<UserCredential?> createUserWithEmailAndPassword() async {

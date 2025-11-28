@@ -59,6 +59,7 @@ class LKey {
   static const String enterPassword = "Enter Password";
   static const String forgetPassword = "Forget Password?";
   static const String logIn = "Log in";
+  static const String otpSend = "OTP Send Successfully";
   static const String logOut = "Log out";
   static const String deleteAccount = "Delete Account";
   static const String createAccountHere = "Create account here!";
@@ -132,6 +133,9 @@ class LKey {
   static const String username = "Username";
   static const String bio = "Bio";
   static const String phoneNumber = "Phone Number";
+  static const String otpWrong = "Wrong OTP";
+  static const String otp = "OTP";
+  static const String otpVerify = "OTP Verify" ;
   static const String links = "Links";
   static const String link = "Link";
   static const String title = "Title";
